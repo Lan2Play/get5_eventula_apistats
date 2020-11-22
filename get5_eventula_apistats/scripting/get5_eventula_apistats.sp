@@ -55,8 +55,7 @@ public Plugin myinfo = {
 public void OnPluginStart() {
   InitDebugLog("get5_debug", "get5_api");
   LogDebug("OnPluginStart version=%s", PLUGIN_VERSION);
-  g_APIKeyCvar =
-      CreateConVar("get5_eventula_apistats_key", "", "Match API key, this is automatically set through rcon");
+  g_APIKeyCvar = CreateConVar("get5_eventula_apistats_key", "", "Match API key, this is automatically set through rcon");
   HookConVarChange(g_APIKeyCvar, ApiInfoChanged);
 
   g_APIURLCvar = CreateConVar("get5_eventula_apistats_url", "", "URL the get5 api is hosted at");
@@ -156,7 +155,7 @@ public void Get5_OnSeriesInit() {
 public void Get5_OnGoingLive(int mapNumber) {
   char mapName[64];
   GetCurrentMap(mapName, sizeof(mapName));
-  Handle req = CreateRequest(k_EHTTPMethodPOST, "match/%d/map/%d/start", g_MatchID, mapNumber);
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "golive/%d", mapNumber);
   if (req != INVALID_HANDLE) {
     AddStringParam(req, "mapname", mapName);
     SteamWorks_SendHTTPRequest(req);
@@ -170,7 +169,7 @@ public void UpdateRoundStats(int mapNumber) {
   int t1score = CS_GetTeamScore(Get5_MatchTeamToCSTeam(MatchTeam_Team1));
   int t2score = CS_GetTeamScore(Get5_MatchTeamToCSTeam(MatchTeam_Team2));
 
-  Handle req = CreateRequest(k_EHTTPMethodPOST, "match/%d/map/%d/update", g_MatchID, mapNumber);
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "updateround/%d", mapNumber);
   if (req != INVALID_HANDLE) {
     AddIntParam(req, "team1score", t1score);
     AddIntParam(req, "team2score", t2score);
@@ -200,7 +199,7 @@ public void Get5_OnMapResult(const char[] map, MatchTeam mapWinner, int team1Sco
   char winnerString[64];
   GetTeamString(mapWinner, winnerString, sizeof(winnerString));
 
-  Handle req = CreateRequest(k_EHTTPMethodPOST, "match/%d/map/%d/finish", g_MatchID, mapNumber);
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "finalize/%d", mapNumber);
   if (req != INVALID_HANDLE) {
     AddIntParam(req, "team1score", team1Score);
     AddIntParam(req, "team2score", team2Score);
@@ -225,8 +224,7 @@ public void UpdatePlayerStats(KeyValues kv, MatchTeam team) {
       char teamString[16];
       GetTeamString(team, teamString, sizeof(teamString));
 
-      Handle req = CreateRequest(k_EHTTPMethodPOST, "match/%d/map/%d/player/%s/update", g_MatchID,
-                                 mapNumber, auth);
+      Handle req = CreateRequest(k_EHTTPMethodPOST, "updateplayer/%d/%s", mapNumber, auth);
       if (req != INVALID_HANDLE) {
         AddStringParam(req, "team", teamString);
         AddStringParam(req, "name", name);
@@ -289,7 +287,7 @@ public void Get5_OnSeriesResult(MatchTeam seriesWinner, int team1MapScore, int t
   bool forfeit = kv.GetNum(STAT_SERIES_FORFEIT, 0) != 0;
   delete kv;
 
-  Handle req = CreateRequest(k_EHTTPMethodPOST, "match/%d/finish", g_MatchID);
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "finalize");
   if (req != INVALID_HANDLE) {
     AddStringParam(req, "winner", winnerString);
     AddIntParam(req, "forfeit", forfeit);
