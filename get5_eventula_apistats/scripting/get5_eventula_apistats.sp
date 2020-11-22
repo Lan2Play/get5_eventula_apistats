@@ -48,11 +48,11 @@ char g_APIURL[128];
 
 // clang-format off
 public Plugin myinfo = {
-  name = "Get5 Web API Integration",
-  author = "splewis",
-  description = "Records match stats to a get5-web api",
+  name = "Get5 eventula Web API Integration",
+  author = "Lan2Play Team & splewis",
+  description = "Records match stats to a eventula-get5-web api",
   version = PLUGIN_VERSION,
-  url = "https://github.com/splewis/get5"
+  url = "https://github.com/Lan2Play/get5_eventula_apistats"
 };
 // clang-format on
 
@@ -63,14 +63,14 @@ public void OnPluginStart() {
   HookConVarChange(g_UseSVGCvar, LogoBasePathChanged);
   g_LogoBasePath = g_UseSVGCvar.BoolValue ? LOGO_DIR : LEGACY_LOGO_DIR;
   g_APIKeyCvar =
-      CreateConVar("get5_web_api_key", "", "Match API key, this is automatically set through rcon");
+      CreateConVar("get5_eventula_apistats_key", "", "Match API key, this is automatically set through rcon");
   HookConVarChange(g_APIKeyCvar, ApiInfoChanged);
 
-  g_APIURLCvar = CreateConVar("get5_web_api_url", "", "URL the get5 api is hosted at");
+  g_APIURLCvar = CreateConVar("get5_eventula_apistats_url", "", "URL the get5 api is hosted at");
 
   HookConVarChange(g_APIURLCvar, ApiInfoChanged);
 
-  RegConsoleCmd("get5_web_avaliable",
+  RegConsoleCmd("get5_eventula_apistats_avaliable",
                 Command_Avaliable);  // legacy version since I'm bad at spelling
   RegConsoleCmd("get5_web_available", Command_Avaliable);
 }
@@ -112,7 +112,7 @@ public void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] ne
     StrCat(g_APIURL, sizeof(g_APIURL), "/");
   }
 
-  LogDebug("get5_web_api_url now set to %s", g_APIURL);
+  LogDebug("get5_eventula_apistats_url now set to %s", g_APIURL);
 }
 
 static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:...) {
@@ -241,8 +241,8 @@ public void Get5_OnGoingLive(int mapNumber) {
     SteamWorks_SendHTTPRequest(req);
   }
 
-  Get5_AddLiveCvar("get5_web_api_key", g_APIKey);
-  Get5_AddLiveCvar("get5_web_api_url", g_APIURL);
+  Get5_AddLiveCvar("get5_eventula_apistats_key", g_APIKey);
+  Get5_AddLiveCvar("get5_eventula_apistats_url", g_APIURL);
 }
 
 public void UpdateRoundStats(int mapNumber) {

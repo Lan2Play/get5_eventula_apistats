@@ -9,7 +9,8 @@ Forked from [splewis'](https://github.com/splewis) [get5_apistats](https://githu
 ## CVARs
 ```
 get5_eventula_apistats_url - Set's the server url to send the post request to
-get5_eventula_apistats_available - Checks if the plugin is correctly loaded on the server
+get5_eventula_apistats_key - Set's the server key which authenticates the server on the Api
+get5_eventula_apistats_avaliable - Checks if the plugin is correctly loaded on the server
 ```
 
 ## Download and Installation
