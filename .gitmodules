@@ -1,0 +1,3 @@
+[submodule "get5"]
+	path = get5
+	url = https://github.com/splewis/get5
