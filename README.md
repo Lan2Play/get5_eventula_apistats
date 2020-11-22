@@ -27,9 +27,9 @@ tbc
 
 You can use Docker to Build get5. At first you need to build the container image locally. Therefore go to the repository folder and run:
 
-	docker build . -t get5build:latest
+	docker build get5_eventula_apistats -t get5eventulaapistatsbuild:latest
 
 Afterwards you can build get5 with the following command: (specify /path/to/your/build/output and /path/to/your/get5src)
 
-	docker run --rm -v /path/to/your/get5src:/get5src -v /path/to/your/build/output:/get5/builds get5build:latest
+	docker run --rm -v /path/to/your/repofolder:/get5src -v /path/to/your/repofolder/build/output:/get5/builds get5eventulaapistatsbuild:latest
 	
