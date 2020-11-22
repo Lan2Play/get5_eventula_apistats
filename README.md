@@ -4,6 +4,7 @@ get5_eventula_apistats
 
 **Status: Supported, actively developed.**
 
+Forked from [splewis'](https://github.com/splewis) [get5_apistats](https://github.com/splewis/get5/blob/master/scripting/get5_apistats.sp) plugin.
 
 ## CVARs
 ```
