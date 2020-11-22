@@ -3,3 +3,4 @@
 *.tar.gz
 build
 get5
+.vscode
