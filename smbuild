@@ -1,0 +1,8 @@
+Plugin(source='scripting/get5_eventula_apistats.sp')
+
+Package(name='get5_eventula_apistats',
+        plugins=['get5_eventula_apistats'],
+        filegroups={
+            '.': ['LICENSE', 'README.md', 'get5'],
+        },
+)
