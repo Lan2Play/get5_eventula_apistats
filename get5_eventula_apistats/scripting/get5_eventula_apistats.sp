@@ -34,7 +34,6 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-int g_MatchID = -1;
 ConVar g_APIKeyCvar;
 char g_APIKey[128];
 
@@ -141,15 +140,11 @@ public int RequestCallback(Handle request, bool failure, bool requestSuccessful,
 }
 
 public void Get5_OnBackupRestore() {
-  char matchid[64];
-  Get5_GetMatchID(matchid, sizeof(matchid));
-  g_MatchID = StringToInt(matchid);
+
 }
 
 public void Get5_OnSeriesInit() {
-  char matchid[64];
-  Get5_GetMatchID(matchid, sizeof(matchid));
-  g_MatchID = StringToInt(matchid);
+
 }
 
 public void Get5_OnGoingLive(int mapNumber) {
