@@ -1,4 +1,5 @@
 #!/bin/bash
+version=$(</get5src/get5_eventula_apistats/version)
 cd /get5src && git submodule update --init --recursive
 cp -rf /get5src/get5_eventula_apistats/* /get5/
 mkdir -p /get5/scripting/get5
@@ -18,4 +19,4 @@ smbuilder --flags='-E'
 
 cd /get5/builds/get5_eventula_apistats
 
-zip -r ../get5_eventula_apistats.zip *
+zip -r ../get5_eventula_apistats-$version.zip *
