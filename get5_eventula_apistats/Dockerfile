@@ -9,7 +9,7 @@ ENV _apt_clean="eval apt-get clean && $_clean"
 # Install support pkgs
 RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     curl wget nano net-tools gnupg2 git lib32stdc++6 python \
-    python-pip tar bash  && $_apt_clean
+    python-pip tar bash zip  && $_apt_clean
 
 RUN mkdir /get5
 RUN mkdir /runscripts

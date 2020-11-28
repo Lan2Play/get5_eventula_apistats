@@ -15,3 +15,7 @@ cp -r /get5src/get5/dependencies/sm-json/addons/sourcemod/scripting/include/* /g
 
 cd /get5
 smbuilder --flags='-E'
+
+cd /get5/builds/get5_eventula_apistats
+
+zip -r ../get5_eventula_apistats.zip *
