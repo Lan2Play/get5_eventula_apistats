@@ -16,7 +16,7 @@ get5_eventula_apistats_available - Checks if the plugin is correctly loaded on t
 ## Download and Installation
 
 ### Requirements
-You must have the get5 plugin installed on your Server. See https://github.com/splewis/get5#requirements and https://github.com/splewis/get5#installation
+You must have the get5 plugin installed on your Server. Check out the [Get5 Documentation](https://splewis.github.io/get5/installation/) 
 
 ### Download
 Download a release package from the [releases section](https://github.com/Lan2Play/get5_eventula_apistats/releases/latest)
