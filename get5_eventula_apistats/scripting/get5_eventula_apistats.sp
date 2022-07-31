@@ -156,7 +156,7 @@ public void Get5_OnGoingLive(const Get5GoingLiveEvent event) {
   Get5_AddLiveCvar("get5_eventula_apistats_url", g_APIURL);
 }
 
-public void UpdateRoundStats(const char[] matchId, int mapNumber) {
+public void UpdateRoundStats(int mapNumber) {
   int t1score = CS_GetTeamScore(Get5_Get5TeamToCSTeam(Get5Team_1));
   int t2score = CS_GetTeamScore(Get5_Get5TeamToCSTeam(Get5Team_2));
 
@@ -190,7 +190,7 @@ public void Get5_OnMapResult(const Get5MapResultEvent event) {
   char winnerString[64];
   GetTeamString(event.Winner.Team, winnerString, sizeof(winnerString));
 
-  Handle req = CreateRequest(k_EHTTPMethodPOST, "finalize/%d", mapNumber);
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "finalize/%d", event.MapNumber);
   if (req != INVALID_HANDLE) {
     AddIntParam(req, "team1score", event.Team1Score);
     AddIntParam(req, "team2score", event.Team2Score);
