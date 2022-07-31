@@ -10,7 +10,7 @@ Forked from [splewis'](https://github.com/splewis) [get5_apistats](https://githu
 ```
 get5_eventula_apistats_url - Set's the server url to send the post request to
 get5_eventula_apistats_key - Set's the server key which authenticates the server on the Api
-get5_eventula_apistats_avaliable - Checks if the plugin is correctly loaded on the server
+get5_eventula_apistats_available - Checks if the plugin is correctly loaded on the server
 ```
 
 ## Download and Installation
@@ -26,11 +26,11 @@ tbc
 
 ## Building
 
-You can use Docker to Build get5. At first you need to build the container image locally. Therefore go to the repository folder and run:
+You can use Docker to Build get5_eventula_apistats. At first you need to build the container image locally. Therefore go to the repository folder and run:
 
 	docker build get5_eventula_apistats -t get5eventulaapistatsbuild:latest
 
-Afterwards you can build get5 with the following command: (specify /path/to/your/build/output and /path/to/your/get5src)
+Afterwards you can build get5_eventula_apistats with the following command: (specify /path/to/your/build/output and /path/to/your/get5src)
 
-	docker run --rm -v /path/to/your/repofolder:/get5src -v /path/to/your/repofolder/build/output:/get5/builds get5eventulaapistatsbuild:latest
+	docker run --rm -v $PWD:/get5src -v $PWD/build/output:/get5/builds get5eventulaapistatsbuild:latest
 	
