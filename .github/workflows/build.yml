@@ -1,4 +1,4 @@
-name: build_dodhooks
+name: build_get5_eventula_apistats
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        name: get dodhooks
+        name: get get5_eventula_apistats
       - name: Build Docker build container
         run: docker build get5_eventula_apistats -t get5eventulaapistatsbuild:latest
       - name: Build get5_eventula_apistats
