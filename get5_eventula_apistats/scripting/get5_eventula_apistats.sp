@@ -107,6 +107,7 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
   Format(url, sizeof(url), "%s%s", g_APIURL, apiMethod);
 
   char formattedUrl[1024];
+  char authKey[1024];
   VFormat(formattedUrl, sizeof(formattedUrl), url, 3);
 
   LogDebug("Trying to create request to url %s", formattedUrl);
@@ -122,7 +123,8 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
 
   } else {
     SteamWorks_SetHTTPCallbacks(req, RequestCallback);
-    AddStringParam(req, "key", g_APIKey);
+    Format(authKey, sizeof(authKey), "Bearer %s", g_APIKey);
+    SteamWorks_SetHTTPRequestHeaderValue(req, 'Authorization', authKey);
     return req;
   }
 }
@@ -151,6 +153,7 @@ public void Get5_OnGoingLive(const Get5GoingLiveEvent event) {
     AddStringParam(req, "mapname", mapName);
     SteamWorks_SendHTTPRequest(req);
   }
+  delete req;
 
   Get5_AddLiveCvar("get5_eventula_apistats_key", g_APIKey);
   Get5_AddLiveCvar("get5_eventula_apistats_url", g_APIURL);
@@ -166,6 +169,7 @@ public void UpdateRoundStats(int mapNumber) {
     AddIntParam(req, "team2score", t2score);
     SteamWorks_SendHTTPRequest(req);
   }
+  delete req;
 
   KeyValues kv = new KeyValues("Stats");
   Get5_GetMatchStats(kv);
@@ -197,6 +201,7 @@ public void Get5_OnMapResult(const Get5MapResultEvent event) {
     AddStringParam(req, "winner", winnerString);
     SteamWorks_SendHTTPRequest(req);
   }
+  delete req;
 }
 
 static void AddIntStat(Handle req, KeyValues kv, const char[] field) {
@@ -249,6 +254,7 @@ public void UpdatePlayerStats(KeyValues kv, Get5Team team) {
         AddIntStat(req, kv, STAT_CONTRIBUTION_SCORE);
         SteamWorks_SendHTTPRequest(req);
       }
+      delete req;
 
     } while (kv.GotoNextKey());
     kv.GoBack();
@@ -284,6 +290,7 @@ public void Get5_OnSeriesResult(const Get5SeriesResultEvent event) {
     AddIntParam(req, "forfeit", forfeit);
     SteamWorks_SendHTTPRequest(req);
   }
+  delete req;
 
   g_APIKeyCvar.SetString("");
 }
