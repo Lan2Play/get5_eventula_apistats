@@ -2,6 +2,7 @@ FROM debian:11
 MAINTAINER Alexander Volz (Alexander@volzit.de)
 
 ENV SMVERSION 1.10
+ENV BUILDVERSION 0.1
 
 ENV _clean="rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
 ENV _apt_clean="eval apt-get clean && $_clean"

@@ -21,7 +21,7 @@ jobs:
         run: docker build get5_eventula_apistats -t get5eventulaapistatsbuild:latest
       - name: Build get5_eventula_apistats
         shell: bash
-        run: docker run --rm -v $PWD:/get5src -v $PWD/build/output:/get5/builds get5eventulaapistatsbuild:latest
+        run: docker run --rm --env BUILDVERSION="${{github.ref}}" -v $PWD:/get5src -v $PWD/build/output:/get5/builds get5eventulaapistatsbuild:latest
       - name: list build
         shell: bash
         working-directory: ./build/output
