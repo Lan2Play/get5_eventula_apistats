@@ -295,11 +295,32 @@ public void Get5_OnSeriesResult(const Get5SeriesResultEvent event) {
   }
   delete req;
 
-  g_APIKeyCvar.SetString("");
+  CreateTimer(float(GetCurrentMatchRestartDelay() + 10.0), FreeServer);
+
 }
 
 public void Get5_OnRoundStatsUpdated(const Get5RoundStatsUpdatedEvent event) {
   if (Get5_GetGameState() == Get5State_Live) {
      UpdateRoundStats(event.MapNumber);
   }
+}
+
+float GetCurrentMatchRestartDelay() {
+  ConVar mp_match_restart_delay = FindConVar("mp_match_restart_delay");
+  if (mp_match_restart_delay == INVALID_HANDLE) {
+    return 1.0;  // Shouldn't really be possible, but as a safeguard.
+  }
+  return mp_match_restart_delay.FloatValue;
+}
+
+ 
+public Action FreeServer(Handle timer)
+{
+  Handle req = CreateRequest(k_EHTTPMethodPOST, "freeserver");
+  if (req != INVALID_HANDLE) {
+    SteamWorks_SendHTTPRequest(req);
+  }
+  delete req;
+
+  g_APIKeyCvar.SetString("");
 }
