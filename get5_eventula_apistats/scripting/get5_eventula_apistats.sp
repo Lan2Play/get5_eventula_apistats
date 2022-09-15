@@ -295,7 +295,7 @@ public void Get5_OnSeriesResult(const Get5SeriesResultEvent event) {
   }
   delete req;
 
-  CreateTimer(float(GetCurrentMatchRestartDelay() + 10.0), FreeServer);
+  CreateTimer(GetCurrentMatchRestartDelay() + 10.0, FreeServer);
 
 }
 
