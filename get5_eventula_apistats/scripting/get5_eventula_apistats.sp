@@ -36,9 +36,11 @@
 
 ConVar g_APIKeyCvar;
 char g_APIKey[128];
+char g_APIKeyOld[128];
 
 ConVar g_APIURLCvar;
 char g_APIURL[128];
+char g_APIURLOld[128];
 
 
 // clang-format off
@@ -90,6 +92,8 @@ static Action Command_Available(int client, int args) {
 
 
 void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue) {
+  StrCopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
+  StrCopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
   g_APIKeyCvar.GetString(g_APIKey, sizeof(g_APIKey));
   g_APIURLCvar.GetString(g_APIURL, sizeof(g_APIURL));
 
@@ -103,8 +107,32 @@ void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue)
 }
 
 static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:...) {
+
+  char APIKey[128];
+  char APIURL[128];
+  char empty[128];
+
+  if (StrEqual(g_APIKey, ""))
+  {
+    StrCopy(APIKey, sizeof(APIKey), g_APIKeyOld);
+    g_APIKeyOld[0] = '\0'
+  }
+  else
+  {
+    StrCopy(APIKey, sizeof(APIKey), g_APIKey);
+  }
+  if (StrEqual(g_APIURL, ""))
+  {
+    StrCopy(APIURL, sizeof(APIURL), g_APIURLOld);
+    g_APIURLOld[0] = '\0'
+  }
+  else
+  {
+    StrCopy(APIURL, sizeof(APIURL), g_APIURL);
+  }
+
   char url[1024];
-  FormatEx(url, sizeof(url), "%s%s", g_APIURL, apiMethod);
+  FormatEx(url, sizeof(url), "%s%s", APIURL, apiMethod);
   char formattedUrl[1024];
   char authKey[1024];
   VFormat(formattedUrl, sizeof(formattedUrl), url, 3);
@@ -112,7 +140,7 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
   LogDebug("Trying to create request to url %s", formattedUrl);
 
   Handle req = SteamWorks_CreateHTTPRequest(httpMethod, formattedUrl);
-  if (StrEqual(g_APIKey, "")) {
+  if (StrEqual(APIKey, "")) {
     // Not using a web interface.
     return INVALID_HANDLE;
 
@@ -122,7 +150,7 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
 
   } else {
     SteamWorks_SetHTTPCallbacks(req, RequestCallback);
-    FormatEx(authKey, sizeof(authKey), "Bearer %s", g_APIKey);
+    FormatEx(authKey, sizeof(authKey), "Bearer %s", APIKey);
     SteamWorks_SetHTTPRequestHeaderValue(req, "Authorization", authKey);
     return req;
   }
