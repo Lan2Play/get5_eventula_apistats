@@ -92,8 +92,8 @@ static Action Command_Available(int client, int args) {
 
 
 void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue) {
-  StrCopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
-  StrCopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
+  strcopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
+  strcopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
   g_APIKeyCvar.GetString(g_APIKey, sizeof(g_APIKey));
   g_APIURLCvar.GetString(g_APIURL, sizeof(g_APIURL));
 
@@ -110,25 +110,24 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
 
   char APIKey[128];
   char APIURL[128];
-  char empty[128];
 
   if (StrEqual(g_APIKey, ""))
   {
-    StrCopy(APIKey, sizeof(APIKey), g_APIKeyOld);
-    g_APIKeyOld[0] = '\0'
+    strcopy(APIKey, sizeof(APIKey), g_APIKeyOld);
+    g_APIKeyOld[0] = '\0';
   }
   else
   {
-    StrCopy(APIKey, sizeof(APIKey), g_APIKey);
+    strcopy(APIKey, sizeof(APIKey), g_APIKey);
   }
   if (StrEqual(g_APIURL, ""))
   {
-    StrCopy(APIURL, sizeof(APIURL), g_APIURLOld);
-    g_APIURLOld[0] = '\0'
+    strcopy(APIURL, sizeof(APIURL), g_APIURLOld);
+    g_APIURLOld[0] = '\0';
   }
   else
   {
-    StrCopy(APIURL, sizeof(APIURL), g_APIURL);
+    strcopy(APIURL, sizeof(APIURL), g_APIURL);
   }
 
   char url[1024];
