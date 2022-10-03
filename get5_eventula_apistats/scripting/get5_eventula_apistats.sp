@@ -110,24 +110,64 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
 
   char APIKey[128];
   char APIURL[128];
+  LogDebug("createrequest called");
+  LogDebug("createrequest g_APIKey %s", g_APIKey);
+  LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
+  LogDebug("createrequest g_APIURL %s", g_APIURL);
+  LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
 
   if (StrEqual(g_APIKey, ""))
   {
+    LogDebug("g_APIKey detected empty, befor strcopy");
+    LogDebug("createrequest g_APIKey %s", g_APIKey);
+    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     strcopy(APIKey, sizeof(APIKey), g_APIKeyOld);
+    LogDebug("g_APIKey detected empty, after strcopy");
+    LogDebug("createrequest g_APIKey %s", g_APIKey);
+    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     g_APIKeyOld[0] = '\0';
+
+    LogDebug("g_APIKey detected empty, after emptying");
+    LogDebug("createrequest g_APIKey %s", g_APIKey);
+    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
+    LogDebug("createrequest APIKey %s", APIKey);
   }
   else
   {
+    LogDebug("g_APIKey detected not empty, befor strcopy");
+    LogDebug("createrequest g_APIKey %s", g_APIKey);
+    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     strcopy(APIKey, sizeof(APIKey), g_APIKey);
+    LogDebug("g_APIKey detected not empty, after strcopy");
+    LogDebug("createrequest g_APIKey %s", g_APIKey);
+    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
+    LogDebug("createrequest APIKey %s", APIKey);
   }
   if (StrEqual(g_APIURL, ""))
   {
+    LogDebug("g_APIURL detected empty, befor strcopy");
+    LogDebug("createrequest g_APIURL %s", g_APIURL);
+    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     strcopy(APIURL, sizeof(APIURL), g_APIURLOld);
+    LogDebug("g_APIURL detected empty, after strcopy");
+    LogDebug("createrequest g_APIURL %s", g_APIURL);
+    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     g_APIURLOld[0] = '\0';
+    LogDebug("g_APIURL detected empty, after emptying");
+    LogDebug("createrequest g_APIURL %s", g_APIURL);
+    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
+    LogDebug("createrequest APIURL %s", APIURL);
   }
   else
   {
+    LogDebug("g_APIURL detected not empty, befor strcopy");
+    LogDebug("createrequest g_APIURL %s", g_APIURL);
+    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     strcopy(APIURL, sizeof(APIURL), g_APIURL);
+    LogDebug("g_APIURL detected not empty, after strcopy");
+    LogDebug("createrequest g_APIURL %s", g_APIURL);
+    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
+    LogDebug("createrequest APIURL %s", APIURL);
   }
 
   char url[1024];
@@ -140,7 +180,7 @@ static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:
 
   Handle req = SteamWorks_CreateHTTPRequest(httpMethod, formattedUrl);
   if (StrEqual(APIKey, "")) {
-    // Not using a web interface.
+    LogError("get5_eventula_apistats_key is empty, abort request", formattedUrl);
     return INVALID_HANDLE;
 
   } else if (req == INVALID_HANDLE) {
