@@ -92,11 +92,6 @@ static Action Command_Available(int client, int args) {
 
 
 void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue) {
-  LogDebug("ApiInfoChanged called");
-  LogDebug("ApiInfoChanged before setting g_APIKey %s", g_APIKey);
-  LogDebug("ApiInfoChanged before setting g_APIKeyOld %s", g_APIKeyOld);
-  LogDebug("ApiInfoChanged before setting g_APIURL %s", g_APIURL);
-  LogDebug("ApiInfoChanged before setting g_APIURLOld %s", g_APIURLOld);
 
   if (StrEqual(g_APIKey, "") == false)
   {
@@ -106,11 +101,7 @@ void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue)
   {
     strcopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
   }
-  LogDebug("ApiInfoChanged after copy g_APIKey %s", g_APIKey);
-  LogDebug("ApiInfoChanged after copy g_APIKeyOld %s", g_APIKeyOld);
-  LogDebug("ApiInfoChanged after copy g_APIURL %s", g_APIURL);
-  LogDebug("ApiInfoChanged after copy g_APIURLOld %s", g_APIURLOld);
-
+  
   g_APIKeyCvar.GetString(g_APIKey, sizeof(g_APIKey));
   g_APIURLCvar.GetString(g_APIURL, sizeof(g_APIURL));
 
@@ -120,76 +111,30 @@ void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue)
     StrCat(g_APIURL, sizeof(g_APIURL), "/");
   }
 
-  LogDebug("ApiInfoChanged after setting g_APIKey %s", g_APIKey);
-  LogDebug("ApiInfoChanged after setting g_APIKeyOld %s", g_APIKeyOld);
-  LogDebug("ApiInfoChanged after setting g_APIURL %s", g_APIURL);
-  LogDebug("ApiInfoChanged after setting g_APIURLOld %s", g_APIURLOld);
-  
-  LogDebug("get5_eventula_apistats_url now set to %s", g_APIURL);
 }
 
 static Handle CreateRequest(EHTTPMethod httpMethod, const char[] apiMethod, any:...) {
 
   char APIKey[128];
   char APIURL[128];
-  LogDebug("createrequest called");
-  LogDebug("createrequest g_APIKey %s", g_APIKey);
-  LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
-  LogDebug("createrequest g_APIURL %s", g_APIURL);
-  LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
 
   if (StrEqual(g_APIKey, ""))
   {
-    LogDebug("g_APIKey detected empty, befor strcopy");
-    LogDebug("createrequest g_APIKey %s", g_APIKey);
-    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     strcopy(APIKey, sizeof(APIKey), g_APIKeyOld);
-    LogDebug("g_APIKey detected empty, after strcopy");
-    LogDebug("createrequest g_APIKey %s", g_APIKey);
-    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     g_APIKeyOld[0] = '\0';
-
-    LogDebug("g_APIKey detected empty, after emptying");
-    LogDebug("createrequest g_APIKey %s", g_APIKey);
-    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
-    LogDebug("createrequest APIKey %s", APIKey);
   }
   else
   {
-    LogDebug("g_APIKey detected not empty, befor strcopy");
-    LogDebug("createrequest g_APIKey %s", g_APIKey);
-    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
     strcopy(APIKey, sizeof(APIKey), g_APIKey);
-    LogDebug("g_APIKey detected not empty, after strcopy");
-    LogDebug("createrequest g_APIKey %s", g_APIKey);
-    LogDebug("createrequest g_APIKeyOld %s", g_APIKeyOld);
-    LogDebug("createrequest APIKey %s", APIKey);
   }
   if (StrEqual(g_APIURL, ""))
   {
-    LogDebug("g_APIURL detected empty, befor strcopy");
-    LogDebug("createrequest g_APIURL %s", g_APIURL);
-    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     strcopy(APIURL, sizeof(APIURL), g_APIURLOld);
-    LogDebug("g_APIURL detected empty, after strcopy");
-    LogDebug("createrequest g_APIURL %s", g_APIURL);
-    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     g_APIURLOld[0] = '\0';
-    LogDebug("g_APIURL detected empty, after emptying");
-    LogDebug("createrequest g_APIURL %s", g_APIURL);
-    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
-    LogDebug("createrequest APIURL %s", APIURL);
   }
   else
   {
-    LogDebug("g_APIURL detected not empty, befor strcopy");
-    LogDebug("createrequest g_APIURL %s", g_APIURL);
-    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
     strcopy(APIURL, sizeof(APIURL), g_APIURL);
-    LogDebug("g_APIURL detected not empty, after strcopy");
-    LogDebug("createrequest g_APIURL %s", g_APIURL);
-    LogDebug("createrequest g_APIURLOld %s", g_APIURLOld);
-    LogDebug("createrequest APIURL %s", APIURL);
   }
 
   char url[1024];
