@@ -98,9 +98,14 @@ void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue)
   LogDebug("ApiInfoChanged before setting g_APIURL %s", g_APIURL);
   LogDebug("ApiInfoChanged before setting g_APIURLOld %s", g_APIURLOld);
 
-  strcopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
-  strcopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
-
+  if (StrEqual(g_APIKey, "") == false)
+  {
+    strcopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
+  }
+  if (StrEqual(g_APIURL, "") == false)
+  {
+    strcopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
+  }
   LogDebug("ApiInfoChanged after copy g_APIKey %s", g_APIKey);
   LogDebug("ApiInfoChanged after copy g_APIKeyOld %s", g_APIKeyOld);
   LogDebug("ApiInfoChanged after copy g_APIURL %s", g_APIURL);
