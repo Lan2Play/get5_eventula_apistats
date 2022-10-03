@@ -92,8 +92,20 @@ static Action Command_Available(int client, int args) {
 
 
 void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue) {
+  LogDebug("ApiInfoChanged called");
+  LogDebug("ApiInfoChanged before setting g_APIKey %s", g_APIKey);
+  LogDebug("ApiInfoChanged before setting g_APIKeyOld %s", g_APIKeyOld);
+  LogDebug("ApiInfoChanged before setting g_APIURL %s", g_APIURL);
+  LogDebug("ApiInfoChanged before setting g_APIURLOld %s", g_APIURLOld);
+
   strcopy(g_APIKeyOld, sizeof(g_APIKeyOld), g_APIKey);
   strcopy(g_APIURLOld, sizeof(g_APIURLOld), g_APIURL);
+
+  LogDebug("ApiInfoChanged after copy g_APIKey %s", g_APIKey);
+  LogDebug("ApiInfoChanged after copy g_APIKeyOld %s", g_APIKeyOld);
+  LogDebug("ApiInfoChanged after copy g_APIURL %s", g_APIURL);
+  LogDebug("ApiInfoChanged after copy g_APIURLOld %s", g_APIURLOld);
+
   g_APIKeyCvar.GetString(g_APIKey, sizeof(g_APIKey));
   g_APIURLCvar.GetString(g_APIURL, sizeof(g_APIURL));
 
@@ -103,6 +115,11 @@ void ApiInfoChanged(ConVar convar, const char[] oldValue, const char[] newValue)
     StrCat(g_APIURL, sizeof(g_APIURL), "/");
   }
 
+  LogDebug("ApiInfoChanged after setting g_APIKey %s", g_APIKey);
+  LogDebug("ApiInfoChanged after setting g_APIKeyOld %s", g_APIKeyOld);
+  LogDebug("ApiInfoChanged after setting g_APIURL %s", g_APIURL);
+  LogDebug("ApiInfoChanged after setting g_APIURLOld %s", g_APIURLOld);
+  
   LogDebug("get5_eventula_apistats_url now set to %s", g_APIURL);
 }
 
