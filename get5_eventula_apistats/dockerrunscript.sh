@@ -14,8 +14,7 @@ cp /get5src/README.md /get5/
 cp -r /get5src/get5/dependencies/sm-json/addons/sourcemod/scripting/include/* /get5/addons/sourcemod/scripting/include
 
 cd /get5
-find
-#sed -i "s|PLUGIN_VERSION|\"$BUILDVERSION\"|g" /get5/scripting/get5/get5_eventula_apistats.sp
+sed -i "s|PLUGIN_VERSION|\"$BUILDVERSION\"|g" /get5/scripting/get5_eventula_apistats.sp
 smbuilder --flags='-E'
 
 cd /get5/builds/get5_eventula_apistats && zip -r ../get5_eventula_apistats-$BUILDVERSION.zip *
